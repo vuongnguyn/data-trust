@@ -87,13 +87,91 @@ Khi một tiêu chí chưa có dữ liệu đánh giá, hệ thống cần đán
 
 ## Công nghệ
 
-Công nghệ và kiến trúc triển khai sẽ được cập nhật sau khi nhóm thống nhất thiết kế.
+- **Giao diện demo:** HTML, CSS và JavaScript thuần, không cần cài thư viện.
+- **Module tính điểm:** Python 3.10+, dùng thư viện chuẩn.
+- Giao diện và module Python hiện chạy độc lập. API, cơ sở dữ liệu và tích hợp
+  backend sẽ được bổ sung khi nhóm thống nhất thiết kế.
+
+## Giao diện demo
+
+Mở trực tiếp `frontend/index.html` trong trình duyệt để xem giao diện. Có thể
+chạy máy chủ tĩnh từ thư mục gốc repository:
+
+```sh
+python -m http.server 8000 --bind 127.0.0.1 --directory frontend
+```
+
+Sau đó truy cập [http://localhost:8000](http://localhost:8000). Máy chủ này chỉ
+phục vụ các tệp giao diện, không phải API backend.
+
+Demo dùng các tài sản dữ liệu mẫu để minh họa bảng tổng quan, điểm tổng hợp,
+độ bao phủ và bảng chi tiết chín tiêu chí. Có thể chọn tài sản, tìm kiếm và
+chỉnh sửa điểm để xem kết quả cập nhật ngay trong trình duyệt.
+
+JavaScript mô phỏng công thức và trọng số mặc định của module Python. Ô điểm
+để trống là chưa đủ thông tin, đóng góp 0 vào điểm tổng hợp và không được tính
+vào độ bao phủ. Điểm 0 đã nhập vẫn được tính là có đánh giá.
+
+Giao diện chưa gọi API, không dùng dịch vụ bên ngoài và không lưu thay đổi.
+Các chỉnh sửa chỉ nằm trong bộ nhớ của trang; tải lại trang sẽ khôi phục dữ
+liệu mẫu. Đây là bản demo giao diện, chưa phải hệ thống đánh giá thực tế.
+
+## Module tính điểm Python
+
+Module `backend/scoring.py` dùng thư viện chuẩn của **Python 3.10+**. Hàm
+`calculate_trust_score(scores, weights=None)` nhận các điểm đã chuẩn hóa và dùng
+trọng số đề xuất ở trên nếu không truyền cấu hình riêng.
+
+```python
+from backend.scoring import calculate_trust_score
+
+result = calculate_trust_score({"data_quality": 80, "documentation": None})
+print(result.score)              # 16.0 / 100
+print(result.coverage)           # 11.111...% (1 trong 9 tiêu chí)
+print(result.weighted_coverage)  # 20.0% trọng số đã có đánh giá
+print(result.missing_criteria)   # 8 tiêu chí còn thiếu
+```
+
+- Tên khóa của chín tiêu chí được liệt kê trong `CRITERIA` và `DEFAULT_WEIGHTS`.
+- Điểm phải là số thực hữu hạn trong khoảng 0–100; không chấp nhận boolean,
+  chuỗi hoặc tên tiêu chí không xác định. Điểm lịch sử sự cố cũng phải được
+  chuẩn hóa theo hướng điểm cao là tốt hơn trước khi gọi hàm.
+- Cấu hình trọng số riêng phải có đúng chín tiêu chí, mỗi trọng số trong khoảng
+  0–100 và tổng bằng 100 (sai số số thực cho phép là `1e-9`).
+- Khóa bị bỏ qua hoặc có giá trị `None` được đánh dấu là **chưa đủ thông tin**,
+  đóng góp 0 vào tổng và vẫn giữ mẫu số 100; không phân bổ lại trọng số.
+  Điểm 0 đã được đánh giá vẫn được tính vào độ bao phủ.
+- `coverage` là tỷ lệ phần trăm số tiêu chí đã đánh giá; `weighted_coverage`
+  là tổng trọng số của các tiêu chí đó. `missing_criteria` liệt kê các tiêu chí
+  thiếu theo thứ tự trong README, kể cả tiêu chí có trọng số 0.
+- Nếu chưa có điểm nào, kết quả là điểm 0, độ bao phủ 0% và cả chín tiêu chí
+  đều thiếu. Đây là trạng thái chưa đủ thông tin để đánh giá.
+
+Chạy các lệnh sau từ thư mục gốc repository:
+
+```sh
+python -m backend
+python -m unittest discover -s tests -v
+```
 
 ## Cấu trúc repository hiện tại
 
 ```text
 .
+├── .gitignore
 ├── README.md
+├── backend/
+│   ├── __init__.py
+│   ├── __main__.py          # Ví dụ chạy module tính điểm
+│   └── scoring.py           # Tiêu chí, kiểm tra đầu vào và công thức
+├── frontend/
+│   ├── index.html           # Giao diện demo
+│   └── assets/
+│       ├── styles.css       # Bố cục và định dạng
+│       └── app.js           # Dữ liệu mẫu và tương tác trong trình duyệt
+└── tests/
+    ├── __init__.py
+    └── test_data_trust_score.py
 ```
 
 ## Thành viên

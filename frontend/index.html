@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Demo Data Trust Score — đánh giá độ tin cậy dữ liệu theo chín tiêu chí có thể giải thích.">
+  <meta name="theme-color" content="#087e68">
+  <title>Data Trust · Tổng quan đánh giá</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Đến nội dung chính</a>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="icon-data" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-list" viewBox="0 0 24 24"><path d="M9 5h12M9 12h12M9 19h12m-19-14 1 1 2-2m-3 8 1 1 2-2m-3 8 1 1 2-2"/></symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M8 14l4-5 4 2 5-7"/></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24"><path d="m16 3 5 5-12 12H4v-5ZM13 6l5 5"/></symbol>
+    <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 7M4 3v7h7"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+  </svg>
+
+  <aside class="sidebar">
+    <a class="brand" href="#overview" aria-label="Data Trust, về tổng quan">
+      <span class="brand-mark"><svg class="icon"><use href="#icon-check"/></svg></span>
+      <span>data<span class="brand-light">trust</span><small>DATA CONFIDENCE PLATFORM</small></span>
+    </a>
+    <div class="workspace"><span class="workspace-avatar">DT</span><span>Không gian làm việc<small>Nhóm Data Trust</small></span><span class="workspace-dot" aria-hidden="true"></span></div>
+    <p class="nav-label">KHÔNG GIAN DỮ LIỆU</p>
+    <nav aria-label="Điều hướng chính">
+      <a class="nav-link active" href="#overview"><svg class="icon"><use href="#icon-grid"/></svg>Tổng quan</a>
+      <a class="nav-link" href="#assets"><svg class="icon"><use href="#icon-data"/></svg>Tài sản dữ liệu<span class="nav-count">3</span></a>
+      <a class="nav-link" href="#criteria"><svg class="icon"><use href="#icon-list"/></svg>Tiêu chí đánh giá</a>
+    </nav>
+    <div class="sidebar-note"><span class="tiny-label">TỪ DỮ LIỆU ĐẾN NIỀM TIN</span><p>Mỗi điểm số đều có<br>một lời giải thích.</p><div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><a href="#method">Tìm hiểu cách tính <span aria-hidden="true">↗</span></a></div>
+    <div class="sidebar-bottom"><span class="user-avatar">08</span><span>Nhóm nghiên cứu<small>Data Trust Score · v0.1</small></span></div>
+  </aside>
+
+  <div class="app-shell">
+    <header class="topbar"><div class="breadcrumb">Không gian làm việc <span aria-hidden="true">/</span> <strong>Tổng quan</strong></div><span class="demo-badge"><span aria-hidden="true"></span>Bản demo · Dữ liệu mẫu</span></header>
+    <main id="main-content">
+      <section id="overview" aria-labelledby="page-title">
+        <div class="page-heading"><div><p class="eyebrow">HIỂU DỮ LIỆU. TIN ĐÚNG CHỖ.</p><h1 id="page-title">Độ tin cậy dữ liệu</h1><p class="page-description">Một góc nhìn rõ ràng về chất lượng, bằng chứng và những điều cần cải thiện.</p></div><button class="button secondary" id="reset-demo" type="button"><svg class="icon"><use href="#icon-reset"/></svg>Khôi phục mẫu</button></div>
+        <div class="metrics" aria-label="Tổng quan ba tài sản mẫu">
+          <article class="metric"><div class="metric-label">Tài sản dữ liệu<svg class="icon"><use href="#icon-data"/></svg></div><div class="metric-value" id="portfolio-count">—</div><p>2 datasets · 1 data product</p></article>
+          <article class="metric"><div class="metric-label">Điểm trung bình<svg class="icon"><use href="#icon-chart"/></svg></div><div class="metric-value"><span id="portfolio-average">—</span><span class="metric-unit">/ 100</span></div><p>Trung bình của các tài sản mẫu</p></article>
+          <article class="metric"><div class="metric-label">Bao phủ trọng số TB<svg class="icon"><use href="#icon-check"/></svg></div><div class="metric-value" id="portfolio-coverage">—</div><p>Mức độ có bằng chứng đánh giá</p></article>
+          <article class="metric"><div class="metric-label">Cần bổ sung bằng chứng<svg class="icon amber"><use href="#icon-info"/></svg></div><div class="metric-value amber" id="portfolio-missing">—</div><p>Tài sản chưa đánh giá đủ tiêu chí</p></article>
+        </div>
+      </section>
+
+      <section class="assessment card" aria-labelledby="assessment-heading">
+        <div class="section-heading"><div><p class="eyebrow">ĐÁNH GIÁ CHI TIẾT</p><h2 id="assessment-heading">Từ điểm số đến bằng chứng</h2></div><div class="asset-picker"><label for="asset-select">Tài sản đang xem</label><select id="asset-select"></select></div></div>
+        <div class="asset-heading"><div class="asset-heading-main"><span class="asset-icon"><svg class="icon"><use href="#icon-data"/></svg></span><div><div class="asset-title-line"><h3 id="asset-title">Đang tải dữ liệu mẫu…</h3><span class="type-badge" id="asset-type"></span></div><p id="asset-description"></p><p class="owner-line">Phụ trách: <strong id="asset-owner"></strong></p></div></div><button class="button primary" id="edit-assessment" type="button"><svg class="icon"><use href="#icon-edit"/></svg>Chỉnh sửa đánh giá</button></div>
+        <div class="assessment-grid">
+          <div class="score-panel">
+            <span class="tiny-label">DATA TRUST SCORE</span>
+            <div class="score-ring" id="score-ring" style="--score: 0"><div class="score-ring-inner"><span id="score-value">—</span><span>trên 100 điểm</span></div></div>
+            <p class="score-caption" id="score-caption"></p>
+            <dl class="coverage-list"><div><dt>Bao phủ tiêu chí</dt><dd id="criterion-coverage">—</dd></div><div><dt>Bao phủ trọng số</dt><dd id="weight-coverage">—</dd></div><div><dt>Tiêu chí còn thiếu</dt><dd class="amber" id="missing-count">—</dd></div></dl>
+            <div class="missing-panel"><div class="missing-title"><svg class="icon"><use href="#icon-info"/></svg>Bằng chứng cần bổ sung</div><ul id="missing-list"></ul><p id="assessment-note"></p></div>
+          </div>
+          <div class="criteria-panel" id="criteria"><div class="criteria-heading"><h3>9 tiêu chí đánh giá</h3><span>Thang điểm 0–100</span></div><div class="table-scroll"><table class="criteria-table"><caption class="sr-only">Điểm, trọng số và đóng góp của từng tiêu chí cho tài sản đang chọn</caption><thead><tr><th scope="col">Tiêu chí</th><th scope="col">Trọng số</th><th scope="col">Điểm</th><th scope="col">Mức điểm</th><th scope="col">Đóng góp</th></tr></thead><tbody id="criteria-body"></tbody></table></div><p class="table-note"><span class="legend-dot" aria-hidden="true"></span>Đóng góp = điểm tiêu chí × trọng số / 100. Điểm 0 đã đánh giá vẫn được tính vào độ bao phủ.</p></div>
+        </div>
+      </section>
+
+      <section class="card asset-catalogue" id="assets" aria-labelledby="assets-heading"><div class="section-heading"><div><p class="eyebrow">DANH MỤC</p><h2 id="assets-heading">Tài sản dữ liệu mẫu <span class="count-badge">03</span></h2></div><div class="search-field"><svg class="icon"><use href="#icon-search"/></svg><label class="sr-only" for="asset-search">Tìm theo tên tài sản hoặc nhóm phụ trách</label><input id="asset-search" type="search" placeholder="Tìm tài sản, nhóm phụ trách…" autocomplete="off"></div></div><div class="table-scroll"><table class="assets-table"><caption class="sr-only">Danh sách tài sản mẫu và kết quả đánh giá</caption><thead><tr><th scope="col">Tên tài sản</th><th scope="col">Loại</th><th scope="col">Nhóm phụ trách</th><th scope="col">Trust Score</th><th scope="col">Bao phủ tiêu chí</th><th scope="col"><span class="sr-only">Thao tác</span></th></tr></thead><tbody id="assets-body"></tbody></table></div></section>
+
+      <aside class="method-note" id="method"><svg class="icon"><use href="#icon-info"/></svg><div><h2>Điểm số đi cùng mức độ đầy đủ</h2><p>Tiêu chí chưa có bằng chứng đóng góp 0 vào điểm tổng hợp và được đánh dấu là thiếu thông tin. Mẫu số luôn là 100; trọng số không được phân bổ lại. Hãy đọc điểm số cùng độ bao phủ trước khi sử dụng dữ liệu.</p></div><span class="formula">Σ (điểm × trọng số) / 100</span></aside>
+      <footer><span>Data Trust Score <span aria-hidden="true">·</span> Nền tảng đánh giá độ tin cậy dữ liệu</span><span>Demo độc lập · Thay đổi được đặt lại khi tải lại trang</span></footer>
+      <noscript><p class="noscript-warning">Vui lòng bật JavaScript để xem dữ liệu mẫu và thử thay đổi điểm đánh giá.</p></noscript>
+      <p id="live-status" class="sr-only" role="status" aria-live="polite"></p>
+    </main>
+  </div>
+
+  <dialog id="assessment-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><form id="assessment-form"><div class="dialog-heading"><p class="eyebrow">THỬ NGHIỆM ĐÁNH GIÁ</p><h2 id="dialog-title">Chỉnh sửa điểm tiêu chí</h2><p id="dialog-description">Nhập điểm từ 0 đến 100. Để trống nếu chưa có bằng chứng; điểm 0 có nghĩa là đã đánh giá. Trọng số dùng cấu hình đề xuất.</p></div><div id="assessment-fields"></div><p class="form-error" id="form-error" role="alert"></p><div class="dialog-footer"><span>Chỉ áp dụng trong phiên demo này.</span><div><button class="button secondary" id="cancel-edit" type="button">Hủy</button><button class="button primary" type="submit">Áp dụng đánh giá</button></div></div></form></dialog>
+</body>
+</html>
